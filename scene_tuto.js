@@ -1,36 +1,19 @@
-
+var light;
+var shadowGenerator;
 function createSceneTuto(engine)
-{
-	console.log("ENTER HERE");
-    
+{    
     var gravity = -0.1;
 	// create scene
 	var scene = new BABYLON.Scene(engine);
 	
 	// create light
-	var light = new BABYLON.PointLight("Omni", new BABYLON.Vector3(40, 500, 60), scene);
+    light = new BABYLON.DirectionalLight("Omni", new BABYLON.Vector3(1, -1, 1), scene);
     light.diffuse = new BABYLON.Color3(1, 1, 1);
     light.specular = new BABYLON.Color3(1, 1, 1);
-    light.intensity = 0.5;
+    light.intensity = 1.0;
     
-    var sun = new BABYLON.PointLight("Omni0", new BABYLON.Vector3(60, 100, 10), scene);
-
-    var light0 = new BABYLON.DirectionalLight("Dir0", new BABYLON.Vector3(8, 10, -10), scene);
-    // var light1 = new BABYLON.DirectionalLight("Dir1", new BABYLON.Vector3(100, 10, -5), scene); // right
-    var light2 = new BABYLON.DirectionalLight("Dir2", new BABYLON.Vector3(-100, 10, 5), scene); // left
-    var light3 = new BABYLON.DirectionalLight("Dir3", new BABYLON.Vector3(0, 10, -100), scene); // front
-    var light4 = new BABYLON.DirectionalLight("Dir3", new BABYLON.Vector3(0, 10, 10), scene); // back
-
-    light0.diffuse = new BABYLON.Color3(1, 1, 1);
-    light0.specular = new BABYLON.Color3(1, 1, 1);
-    // light1.diffuse = new BABYLON.Color3(1, 1, 1);
-    // light1.specular = new BABYLON.Color3(1, 1, 1);
-    light2.diffuse = new BABYLON.Color3(1, 1, 1);
-    light2.specular = new BABYLON.Color3(1, 1, 1);
-    light3.diffuse = new BABYLON.Color3(1, 1, 1);
-    light3.specular = new BABYLON.Color3(1, 1, 1);  
-    light4.diffuse = new BABYLON.Color3(1, 1, 1);
-    light4.specular = new BABYLON.Color3(1, 1, 1);
+    shadowGenerator = new BABYLON.ShadowGenerator(1024, light);
+    //shadowGenerator.useVarianceShadowMap = true;
     
     // var spot_light = new BABYLON.SpotLight("spot_light", new BABYLON.Vector3(20, 50, 20),  new BABYLON.Vector3(20, 0, 20), 0.8*Math.PI, 2,  scene);
     // spot_light.diffuse = new BABYLON.Color3(1, 1, 1);
@@ -98,7 +81,7 @@ function createSceneTuto(engine)
 	{
 		console.log("HI");
         // var generate_size = parseFloat(prompt("Decide generate size: "));
-		world_generate(scene, camera, 300, 300, 0, 0);
+		world_generator(scene, camera, 100, 100, 0, 0);
 	},1000);
 
 

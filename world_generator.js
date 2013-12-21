@@ -257,7 +257,54 @@ function generateBlock(scene)
     // return plane2;
 }
 
-function world_generate(scene, camera, width, height, x, z)
+function sumOcatave(num_iterations, x, y, persistence, scale, low, high)
+{
+    var maxAmp = 0
+    var amp = 1
+    var freq = scale
+    var noise_value = 0
+
+    //add successively smaller, higher-frequency terms
+    for(var i = 0; i < num_iterations; ++i)
+    {
+        noise_value += noise.simplex2(x * freq, y * freq) * amp
+        maxAmp += amp
+        amp *= persistence
+        freq *= 2
+    }
+    // take the average value of the iterations
+    noise_value /= maxAmp
+
+    // normalize the result
+    noise_value = noise_value * (high - low) / 2 + (high + low) / 2
+
+    return noise_value;
+}
+
+function sumOcatave3(num_iterations, x, y, z, persistence, scale, low, high)
+{
+    var maxAmp = 0
+    var amp = 1
+    var freq = scale
+    var noise_value = 0
+
+    //add successively smaller, higher-frequency terms
+    for(var i = 0; i < num_iterations; ++i)
+    {
+        noise_value += noise.simplex3(x * freq, y * freq, z*freq) * amp
+        maxAmp += amp
+        amp *= persistence
+        freq *= 2
+    }
+    // take the average value of the iterations
+    noise_value /= maxAmp
+
+    // normalize the result
+    noise_value = noise_value * (high - low) / 2 + (high + low) / 2
+
+    return noise_value;
+}
+function world_generator(scene, camera, width, height, x, z)
 {
 	//Height multiplies the final noise output
 	// var Height = 10;
@@ -271,21 +318,57 @@ function world_generate(scene, camera, width, height, x, z)
     */
     var count = 0;
     var chunks = [];
-        
+    var grass = [];
+    
+    // PerlinSimplex.noiseDetail();
+    // PerlinSimplex.setRng(Math);
     noise.seed(Math.random());
 	/* noise */
+    var scale_value = 0.007;
 	for(var i = 0; i < width; i++)
 	{
 		for(var j = 0; j < height; j++)
 		{           
-                var block_x = i/2;
-                var block_z = j/2;
+            //for(var k = 0; k < 10; k++)
+            //{
+                var block_x = i;
+                var block_z = j;
+                var block_y = Math.floor(sumOcatave(8, i, j, 0.5, scale_value, 0, 255)*0.12);
                 // var block_y = Math.floor(perlin2d(i, j)*30);
-                var block_y = Math.floor(noise.simplex2(i, j)*30);
+                // var block_y = Math.floor(PerlinSimplex.noise(i*scale_value, j*scale_value)*40);
+                // var block_y = noise.simplex3(i*scale_value, j*scale_value, k*scale_value)*90;
+                // var block_y = Math.floor(sumOcatave3(8, i, j, k, 0.5, scale_value, 0, 255))*0.2;
+                // generate chunk and set its position
+            
+                if(block_y>=10 && block_y<=12)
+                {
+                    grass.push([block_x, block_y, block_z]);
+                }
+            
+                var chunk = generateChunk();
+                chunk.setPosition(block_x * block_width, Math.floor(block_y) * block_width, block_z * block_width);
+                // save to array
+                chunks.push(chunk);
+                
+                 // update count
+                count++;            
+                if(count == 128)
+                {
+                    generateChunksMesh(chunks, scene);
+                    chunks = [];
+                    count = 0;
+                } 
+            // }
+            /*
+                var block_x = i/8;
+                var block_z = j/8;
+                // var block_y = Math.floor(perlin2d(i, j)*30);
+                var block_y = Math.floor(PerlinSimplex.noise(i, j)*10);
+                // var block_y = Math.floor(noise.simplex2(i, j)*30);
 
                 // generate chunk and set its position
                 var chunk = generateChunk();
-                chunk.setPosition(block_x * 2 * block_width, block_y * block_width, block_z * 2 * block_width);
+                chunk.setPosition(block_x * 8 * block_width, block_y * block_width, block_z * 8 * block_width);
                 // save to array
                 chunks.push(chunk);
                 
@@ -297,8 +380,10 @@ function world_generate(scene, camera, width, height, x, z)
                     chunks = [];
                     count = 0;
                 }   
+                */
 		}
 	}
+    generateGrass(grass);
     alert("Finish generating terrain");
     console.log("FINISH");
 }

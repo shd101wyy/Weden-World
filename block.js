@@ -809,12 +809,12 @@ function generateChunksMesh (chunks_array, scene)
         indices1.push(0+i*4, 1+i*4, 2+i*4);
     }
     
-    
+    /*
     console.log(positions0);
     console.log(positions1);
     
     console.log(indices0);
-
+    */
     
     // create two meshes
     var mesh0 = new BABYLON.Mesh("front_back_left_right", scene);
@@ -831,21 +831,57 @@ function generateChunksMesh (chunks_array, scene)
     mesh1.setVerticesData(uvs1, BABYLON.VertexBuffer.UVKind, true);
     mesh1.setIndices(indices1);
 
+    /*
     mesh0.material = new BABYLON.StandardMaterial("mesh0_material", scene);
     mesh0.material.diffuseColor = new BABYLON.Color3(159/255,206/255,110/255);
     mesh1.material = new BABYLON.StandardMaterial("mesh0_material", scene);
     mesh1.material.diffuseColor = new BABYLON.Color3(159/255,206/255,110/255);
-    /*
+    */
+    
     //
     //    set material
     //
     mesh0.material = new BABYLON.StandardMaterial("mesh0_material", scene);
-    mesh0.material.diffuseColor = new BABYLON.Color3(1, 0, 0);
+    //mesh0.material.diffuseColor = new BABYLON.Color3(1, 0, 0);
+    //mesh0.material.specularColor = new BABYLON.Color3(0, 1, 0);
     mesh0.material.diffuseTexture = new BABYLON.Texture("./textures/grass_dirt2.png", scene);
     
     mesh1.material = new BABYLON.StandardMaterial("mesh1_material", scene);
-    mesh1.material.diffuseColor = new BABYLON.Color3(0, 1, 0);
+    //mesh1.material.diffuseColor = new BABYLON.Color3(0, 1, 0);
+    //mesh1.material.specularColor = new BABYLON.Color3(0, 1, 0);
     mesh1.material.diffuseTexture = new BABYLON.Texture("./textures/grass2.png", scene);
+    
+    mesh0.receiveShadows = true;
+    mesh1.receiveShadows = true;
+    
+    shadowGenerator.getShadowMap().renderList.push(mesh0);
+    shadowGenerator.getShadowMap().renderList.push(mesh1);
+
+    
+}
+
+function generateGrass(grass,scene;)
+{
+    console.log("Begin to generate grass");
+    console.log(grass);
+    /*
+    var positions = [];
+    var normals = [];
+    var uvs = [];
+    for(var i = 0; i < grass.length; i++)
+    {
+        var x = grass[i][0];
+        var y = grass[i][1];
+        var z = grass[i][2];
+        
+        for(var a = 0; a < 4; a++)
+        {
+            var vertex0 = positions.length;
+            var vertex1 = vertex0+1;
+            var vertex2 = vertex0+2;
+            var vertex3 = vertex0+3;            
+        }
+    }
     */
 }
 
