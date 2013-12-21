@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="100" tilewidth="16" tileheight="16">
+ <tileset firstgid="1" name="tileset-advance" tilewidth="16" tileheight="16">
+  <image source="tileset-advance.png" trans="ff00ff" width="128" height="15971"/>
+  <terraintypes>
+   <terrain name="New Terrain" tile="-1"/>
+  </terraintypes>
+ </tileset>
+ <layer name="Tile Layer 1" width="100" height="100">
+  <data encoding="base64" compression="zlib">
+   eJzt2jEOgkAQQNG15QDczWilldE7exUx0biFglAwE/YVLxQ0k/1hyQa6XSkdAAAAAAAAAAAAAAAAAAAAAADAhHv5iJ6lVdY+L23y2PelHCrHPn6mlj17nAbnFz1y9rCHxbgM63+t3PRISQ8AAAAAAAAAmOb7eg7vDr+uxLao/8P2X/b6Pf4VPevWzWmhhx4tmdtCDz1ao0ceno9cxtb52/kjet6tGzuT6xHbxZ6Vw5J3iCbrNVlyn5he0XOgBwAAALTsAbtKORk=
+  </data>
+ </layer>
+</map>
