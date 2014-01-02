@@ -45,7 +45,7 @@ document.getElementById("game_console").addEventListener("click", function()
                                   {
                                       var a_ = s[1](); // call function
                                       var s_ = s[0];
-                                      if(a_ !== undefined)
+                                      if(typeof(a_) !== "undefined")
                                           s_ += a_
                                       game_console.drawText(1, 1, s_, 13);
                                   }
@@ -139,7 +139,7 @@ for(var y = 0; y < current_stage.length; y++)
 {
     for(var x = 0; x < current_stage[y].length; x++)
     {
-        var cell = current_stage_cell[current_stage[y][x]] === undefined? current_stage[y][x] : current_stage_cell[current_stage[y][x]];
+        var cell = typeof(current_stage_cell[current_stage[y][x]]) === "undefined" ? current_stage[y][x] : current_stage_cell[current_stage[y][x]];
         game_display.draw(x, y, cell, current_stage_foreground_color[current_stage[y][x]], current_stage_background_color[current_stage[y][x]]);
     }
 }
