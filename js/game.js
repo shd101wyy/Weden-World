@@ -19,10 +19,20 @@ document.getElementById("game_console").addEventListener("click", function()
                               {
                                   game_console.clear();
                                   
+                                  if(STORY_STAGE === STORIES.length)
+                                  {
+                                      game_console.drawText(1, 1, "%c{red}Game Unfinished %c{} ", 13, "red");
+                                      return;
+
+                                  }
                                   // finish current stage
                                   if(STORY_COUNT === STORIES[STORY_STAGE].length)
                                   {
                                       game_console.drawText(1, 1, "%c{red}Finish Current Stage:  " + STORY_STAGE + " %c{} ", 13, "red");
+                                      
+                                      STORY_STAGE++; //进入下一个story stage。
+                                      STORY_COUNT = 0; //清零。
+                                      
                                       return;
                                   }
                                   // alert("Clicked Me");
