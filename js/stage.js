@@ -85,9 +85,9 @@ var stage0_forground_color =
     };
 var stage0_background_color = 
     {
-        "#":undefined,
-        " ":undefined,
-        "@":undefined
+        //"#":undefined,
+        //" ":undefined,
+        //"@":undefined
     };
 
 STORIES_STAGES.push(
